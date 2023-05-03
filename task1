@@ -1,0 +1,112 @@
+#include <iostream>
+
+using namespace std;
+void tablo (int* team1,int* team2){
+    for (int i = 0; i < 3; i++){ // выводим первых трех игроков 1 команды 
+        cout << team1 [i] << " "; 
+
+    } 
+cout << " " << " ";
+for (int i = 0; i < 3; i++) 
+    cout << team2 [i] << " ";
+
+cout << '\n';
+   for (int i = 5; i >= 3; i--) // выводим последних трёх игроков 1 команды
+        cout << team1 [i] << " ";
+ 
+  cout << " " << " ";
+  for (int i = 5; i >= 3; i--)
+  cout << team2 [i] << " ";
+
+    cout << '\n';
+}
+ void perehod (int* team) {
+     int per = team[5]; 
+     for (int i = 5; i > 0; i--){ 
+     team [i] = team [i - 1];
+ }
+ team [0] = per;
+ 
+
+ }
+ 
+ 
+void volleyball (int* team1,int* team2) {
+int win1 = 0;
+int win2 = 0;
+while (win1 < 3 && win2 <3) {
+ int score1 = 0;
+ int score2 = 0;
+ while ((score1 < 25 && score2 < 25) or !(score1-score2 >= 2 or score2 - score1 >= 2)) {
+     tablo (team1,team2);
+     cout << "who win? \n";
+     int winner;
+     cin >> winner;
+     cout << "what action? [1 - attack, 2 - block, 3 - supply, 4 - mistake] \n";
+     int action;
+     cin >> action;
+     if (winner == 1){
+         perehod (team1);
+         score1++;
+     }
+     else if (winner == 2){
+         perehod (team2);
+         score2++;
+     }
+     if (action!=4) {
+         cout << "which player? \n";
+         int player;
+         int vlb = 1;
+         cin >> player;
+         do {
+             if (winner == 1){
+                 for (int players = 0; players < 8; players ++){
+                     if (team1 [players] == player ){
+                         vlb = 0;
+                         break;
+                     }
+                 }
+             }
+             if (winner == 2){
+                 for (int players = 0; players < 8; players ++){
+                     if (team2 [players] == player ){
+                         vlb = 0;
+                         break;
+                     }
+                 }
+             }
+             if (vlb){
+            cout << "invalid player \n";
+            cin >> player;} 
+         } while (vlb);
+     }
+     
+     
+         
+     
+ }
+    if (score1 > score2){
+    win1++;
+    }
+    else if (score2 > score1){
+        win2++;
+    }
+    
+}
+ 
+}
+
+
+
+
+
+
+int main()
+{
+  int team1 [6] = { 78,81,91,10,11,12};
+  int team2 [6] = { 1,2,3,4,5,6};
+  volleyball (team1,team2);
+  
+  
+    return 0;
+}
